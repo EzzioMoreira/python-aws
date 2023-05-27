@@ -15,16 +15,16 @@ ec2 = boto3.resource('ec2')
 
 try:
     def lambda_handler(event, context):
-        instance = ec2.create_instance(
-            Image=AMI,
+        instance = ec2.create_instances(
+            ImageId=AMI,
             InstanceType=INSTANCE_TYPE,
             SubnetId=SUBNET_ID,
             MaxCount=1,
-            MixCount=1
+            MinCount=1
         )
 
-        print('Nova instancia criada', instance[0].id, instance[0].name)
+        print('Nova instancia criada', instance[0].id)
 
 except Exception as error:
-    logging.error('Nao foi possível criar instancia{}',format(error))
+    logging.error('Nao foi possível criar instancia {}',format(error))
     exit(1)
